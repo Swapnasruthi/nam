@@ -1,3 +1,85 @@
-#heading{
-    color:red;
+*{
+    padding:0;
+    font-family: "Montserrat", sans-serif;
+}
+
+.root{
+   
+    width: 100%;
+
+}
+.header{
+    height: 5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border:2px solid black;
+}
+.header img{
+    width:7rem;
+    height: 6rem;
+    position: relative;
+    z-index: -1;
+}
+.header .nav-options ul{
+    display: flex;
+    list-style: none;
+    align-items: center;
+    font-size: 1.3rem;
+}
+.nav-options ul li{
+    margin-right: 2rem;
+}
+
+
+.body{
+    height: 80vh;
+   
+}   
+.rest-container{
+    height: 80vh;
+    display: flex;
+    flex-wrap: wrap;
+    
+}
+.resto-cards{
+    margin:2rem 1rem 1rem 0.5rem;
+    height: 20rem;
+    width:17rem;
+    /* background-color: #dcd9d9; */
+    display: flex;
+    flex-direction: column;
+    padding:0.75rem;
+    border-radius: 0.85rem;
+    box-sizing: border-box;
+    transition: all 0.2s ease-in-out;
+}
+.resto-cards img{
+    border-radius: 1rem;
+    height: 60%;
+}
+.resto-info{
+    display: flex;
+    flex-direction: column;
+    padding-top:1rem;
+    
+}
+
+.resto-info p{
+    margin-top: -0.5rem;
+    margin-left:0.6rem;
+}
+.resto-title{
+    margin-top: 1rem;
+    font-weight: 800;
+}
+
+.resto-info span{
+    font-weight: 700;
+}
+
+.resto-cards:hover{
+    transform:scale(0.95);
+    box-shadow: 1px 5px 10px rgb(83, 82, 82);
+    cursor: pointer;
 }
