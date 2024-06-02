@@ -20,6 +20,7 @@
     height: 6rem;
     position: relative;
     z-index: -1;
+    margin-left: 1rem;
 }
 .header .nav-options ul{
     display: flex;
@@ -28,9 +29,16 @@
     font-size: 1.3rem;
 }
 .nav-options ul li{
-    margin-right: 2rem;
+    color: #403f3f;
+    margin-right: 4.5rem;
+    font-weight: 700;
 }
 
+.nav-options ul li:hover{
+    color: orange;
+    text-shadow:0 1px 2px rgb(83, 55, 1);
+    cursor: pointer;
+}
 
 .body{
     height: 80vh;
@@ -82,4 +90,8 @@
     transform:scale(0.95);
     box-shadow: 1px 5px 10px rgb(83, 82, 82);
     cursor: pointer;
+}
+.filter{
+    margin:1rem 0rem 0rem 1.5rem;
+    
 }
