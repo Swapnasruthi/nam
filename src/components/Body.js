@@ -1,59 +1,30 @@
 import RestraurentCards from "./RestaurentCard";
 import restData from "../utils/mockdata";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import Shimmer from "./Shimmer";
 
 const Body = ()=>{
-    const [listOfRestaurent, setListOfRestaurent] = useState(restData);
+    const [listOfRestaurent, setListOfRestaurent] = useState([]);
 
-    // let listOfRest = [ 
-    // {
-    //     type: 'restaurant',
-    //     data: {
-    //       type: 'F',
-    //       id: '121603',
-    //       name: 'Kannur Food Point',
-    //       uuid: '51983905-e698-4e31-b0d7-e376eca56320',
-    //       city: '1',
-    //       area: 'Tavarekere',
-    //       totalRatingsString: '10000+ ratings',
-    //       cloudinaryImageId: 'bmwn4n4bn6n1tcpc8x2h',
-    //       cuisines: ['Kerala', 'Chinese'],
-    //       tags: [],
-    //       costForTwo: 30000,
-    //       costForTwoString: '₹300 FOR TWO',
-    //       deliveryTime: 24,
-    //       minDeliveryTime: 24,
-    //       maxDeliveryTime: 24,
-    //       slaString: '24 MINS',
-    //       lastMileTravel: 3,
-    //       avgRating: '3.9',
-    //       }
-    // },
-    // {
-    //     type: 'restaurant',
-    //     data: {
-    //       type: 'F',
-    //       id: '121604',
-    //       name: 'Kannur Food Point',
-    //       uuid: '51983905-e698-4e31-b0d7-e376eca56320',
-    //       city: '1',
-    //       area: 'Tavarekere',
-    //       totalRatingsString: '10000+ ratings',
-    //       cloudinaryImageId: 'bmwn4n4bn6n1tcpc8x2h',
-    //       cuisines: ['Kerala', 'Chinese'],
-    //       tags: [],
-    //       costForTwo: 30000,
-    //       costForTwoString: '₹300 FOR TWO',
-    //       deliveryTime: 24,
-    //       minDeliveryTime: 24,
-    //       maxDeliveryTime: 24,
-    //       slaString: '24 MINS',
-    //       lastMileTravel: 3,
-    //       avgRating: '4.9',
-          
-    //       }
-    // }
-    // ];
+    useEffect(()=>{
+       fetchData();
+    },[]);
+
+    const fetchData = async ()=>{
+        const data = await fetch("https://www.swiggy.com/mapi/homepage/getCards?lat=17.44941225066375&lng=78.383892888085"
+        );
+        const json = await data.json();
+        // console.log(json?.data?.success?.cards[3]?.gridWidget?.gridElements?.infoWithStyle?.restaurants);
+        //console.log(json.data.success.cards[3].gridWidget.gridElements.infoWithStyle.restaurants);
+        // console.log(json);
+        // console.log(json.data.success.cards[3].gridWidget.gridElements.infoWithStyle.restaurants);
+       setListOfRestaurent(json?.data?.success?.cards[3]?.gridWidget?.gridElements?.infoWithStyle?.restaurants);
+
+    }
+
+    if(listOfRestaurent.length === 0){
+        return <Shimmer/>;
+    }
 
     return (
         
@@ -75,7 +46,7 @@ const Body = ()=>{
                     
                     onClick={ () => {
                         const filterdRest = listOfRestaurent.filter(
-                            (res) => res.data.avgRating > 4
+                            (res) => res.info.avgRating > 4
                         );
                         setListOfRestaurent(filterdRest);
                     }} 
@@ -91,7 +62,7 @@ const Body = ()=>{
                    {
                     listOfRestaurent.map((restaurant) =>
                     (
-                        <RestraurentCards key={restaurant.data.id} restObj={restaurant}/>
+                        <RestraurentCards key={restaurant.info.id} restObj={restaurant}/>
                     ))
                    }
             </div>
@@ -100,3 +71,5 @@ const Body = ()=>{
 }
 
 export default Body;
+
+
