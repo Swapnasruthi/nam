@@ -36,7 +36,6 @@
 
 .nav-options ul li:hover{
     color: orange;
-    text-shadow:0 1px 2px rgb(83, 55, 1);
     cursor: pointer;
 }
 
@@ -96,6 +95,10 @@
     
 }
 
+.filter-btn{
+    position: absolute;
+    right: 4%;
+}
 .shimmer-container{
     height: 80vh;
     display: flex;
@@ -111,4 +114,27 @@
     padding:0.75rem;
     border-radius: 0.85rem;
     box-sizing: border-box;
+}
+
+.login{
+    margin-right:3rem;
+    padding:0.5rem 1.5rem;
+    font-weight: 700;
+    font-size: 1rem;
+}
+.input_submit{
+    margin-right: 1rem;
+    margin-left: 0.5rem;
+    font-weight: 700;
+
+
+}
+.input-box{
+    width:40rem;
+    border:1px solid #989292;
+    height: 1rem;
+    border-radius: 2rem;
+    padding: 1rem;
+    font-size: 1rem;
+    
 }

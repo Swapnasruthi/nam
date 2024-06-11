@@ -4,7 +4,10 @@ import {useEffect, useState} from "react";
 import Shimmer from "./Shimmer";
 
 const Body = ()=>{
-    const [listOfRestaurent, setListOfRestaurent] = useState([]);
+    const [listOfRestaurent, setListOfRestaurent] = useState([]); //this is for storing all the cards (whenever i need to filter something, i'll use this variable)
+    const [filteringRestaurent, setFilteringRestaurent] = useState([]); //this is for displaying the changes in the UI. it also contains the cards. but, changes will be undergoes in this variable.
+   
+    const [inputValue,setInputValue] = useState(""); //this is for tracking our input box.
 
     useEffect(()=>{
        fetchData();
@@ -18,10 +21,12 @@ const Body = ()=>{
         //console.log(json.data.success.cards[3].gridWidget.gridElements.infoWithStyle.restaurants);
         // console.log(json);
         // console.log(json.data.success.cards[3].gridWidget.gridElements.infoWithStyle.restaurants);
-       setListOfRestaurent(json?.data?.success?.cards[3]?.gridWidget?.gridElements?.infoWithStyle?.restaurants);
-
+       
+        //optional chaining.
+        setListOfRestaurent(json?.data?.success?.cards[3]?.gridWidget?.gridElements?.infoWithStyle?.restaurants);
+        setFilteringRestaurent(json?.data?.success?.cards[3]?.gridWidget?.gridElements?.infoWithStyle?.restaurants);
     }
-
+    //conditional rendering.
     if(listOfRestaurent.length === 0){
         return <Shimmer/>;
     }
@@ -30,37 +35,40 @@ const Body = ()=>{
         
         <div className="body">
             <div className="filter">
+                <input 
+                    type="text"
+                    className="input-box"
+                    value={inputValue}
+                    //tracking the input value using the onchange function.
+                    onChange={(e)=>{
+                        setInputValue(e.target.value);
+                    }}
+                />
+                <button 
+                    className="input_submit"
+                    onClick={()=>{
+                            const inputFilter = listOfRestaurent.filter((res)=>res.info.name.toLowerCase().includes(inputValue));
+                            setFilteringRestaurent(inputFilter);
+                            console.log(inputValue);
+                       }} >
+                   
+                    submit
+                </button>
                 <button 
                     className="filter-btn" 
-
-                    //by using a normal js variable.
-
-                    // onClick={ () => {
-                    //     listOfRest = listOfRest.filter(
-                    //         (res) => res.data.avgRating > 4
-                    //     );
-                    //     console.log(listOfRest);
-                    // }} 
-
-                    //By using a state variable function.
-                    
                     onClick={ () => {
                         const filterdRest = listOfRestaurent.filter(
                             (res) => res.info.avgRating > 4
                         );
                         setListOfRestaurent(filterdRest);
                     }} 
-
-
-                    >
-                
-               
-                    Top Rated Restaurant
+                    > 
+                    Rated Restaurant
                 </button>
             </div>
                 <div className="rest-container">
                    {
-                    listOfRestaurent.map((restaurant) =>
+                    filteringRestaurent.map((restaurant) =>
                     (
                         <RestraurentCards key={restaurant.info.id} restObj={restaurant}/>
                     ))
