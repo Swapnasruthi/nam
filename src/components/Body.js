@@ -60,7 +60,8 @@ const Body = ()=>{
                         const filterdRest = listOfRestaurent.filter(
                             (res) => res.info.avgRating > 4
                         );
-                        setListOfRestaurent(filterdRest);
+                        setFilteringRestaurent(filterdRest);
+                        // console.log("clicked");
                     }} 
                     > 
                     Rated Restaurant
