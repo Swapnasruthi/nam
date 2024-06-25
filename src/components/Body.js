@@ -2,6 +2,7 @@ import RestraurentCards from "./RestaurentCard";
 import restData from "../utils/mockdata";
 import {useEffect, useState} from "react";
 import Shimmer from "./Shimmer";
+import {Link} from "react-router-dom";
 
 const Body = ()=>{
     const [listOfRestaurent, setListOfRestaurent] = useState([]); //this is for storing all the cards (whenever i need to filter something, i'll use this variable)
@@ -17,14 +18,14 @@ const Body = ()=>{
         const data = await fetch("https://www.swiggy.com/mapi/homepage/getCards?lat=17.44941225066375&lng=78.383892888085"
         );
         const json = await data.json();
-        // console.log(json?.data?.success?.cards[3]?.gridWidget?.gridElements?.infoWithStyle?.restaurants);
+        //console.log(json?.data?.success?.cards[3]?.gridWidget?.gridElements?.infoWithStyle?.restaurants);
         //console.log(json.data.success.cards[3].gridWidget.gridElements.infoWithStyle.restaurants);
-        // console.log(json);
+        //console.log(json);
         // console.log(json.data.success.cards[3].gridWidget.gridElements.infoWithStyle.restaurants);
        
         //optional chaining.
-        setListOfRestaurent(json?.data?.success?.cards[3]?.gridWidget?.gridElements?.infoWithStyle?.restaurants);
-        setFilteringRestaurent(json?.data?.success?.cards[3]?.gridWidget?.gridElements?.infoWithStyle?.restaurants);
+        setListOfRestaurent(json?.data?.success?.cards[4]?.gridWidget?.gridElements?.infoWithStyle?.restaurants);
+        setFilteringRestaurent(json?.data?.success?.cards[4]?.gridWidget?.gridElements?.infoWithStyle?.restaurants);
     }
     //conditional rendering.
     if(listOfRestaurent.length === 0){
@@ -71,7 +72,7 @@ const Body = ()=>{
                    {
                     filteringRestaurent.map((restaurant) =>
                     (
-                        <RestraurentCards key={restaurant.info.id} restObj={restaurant}/>
+                       <Link to={"restaurents/"+restaurant.info.id} style={{ textDecoration: 'none', color:"black" }}> <RestraurentCards key={restaurant.info.id} restObj={restaurant}/> </Link>
                     ))
                    }
             </div>

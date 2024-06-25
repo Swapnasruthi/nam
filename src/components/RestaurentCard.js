@@ -16,7 +16,7 @@ const RestraurentCards = (props)=>{
            <img  className="resto-img" src={CDN_URL+ cloudinaryImageId}/>
            
            <div className="resto-info">
-           <p className="resto-title">{name}</p>
+           <p className="resto-title" >{name}</p>
            <p><i class="fa-solid fa-star"></i>
            <span>{avgRating} •{(sla.deliveryTime-5) + "-"+(sla.deliveryTime)} mins </span></p>
            <p>{cuisines[0]+", "+cuisines[1]+",..."}</p>

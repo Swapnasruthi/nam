@@ -27,11 +27,14 @@
     list-style: none;
     align-items: center;
     font-size: 1.3rem;
+   
 }
 .nav-options ul li{
     color: #403f3f;
     margin-right: 4.5rem;
     font-weight: 700;
+    text-decoration: none;
+   
 }
 
 .nav-options ul li:hover{
