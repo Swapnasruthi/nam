@@ -1,43 +1,34 @@
-import { useEffect,useState } from "react";
+import useRestaurentMenu from "../utils/useRestaurentMenu";
 import Shimmer from "./Shimmer";
 import { useParams } from "react-router-dom";
-import { RESTAURENT_MENU } from "../utils/constants";
 const RestaurentMenu = ()=>{
 
-    const resId = useParams();
-    //console.log(resId.resId);
+    const {resId} = useParams();
+   
     
-    const [resInfo,setResInfo] = useState(null);
+    const resInfo = useRestaurentMenu(resId);
+   
 
-    useEffect(()=>{
-        menu_fetch()
-    },[]);
 
-    //fetching the API data using an API call. 
-    const menu_fetch = async()=>{
-        const data = await fetch(
-            RESTAURENT_MENU + resId.resId
-            );
-            const json = await data.json();
-            //console.log(json);
-            //console.log(json.data.cards[2].card.card.info.name);
-            setResInfo(json);
-    };
     
     if(resInfo === null){
         return <Shimmer/>;
     }
-   
+    //console.log(resInfo?.data?.cards[2]?.card?.card?.info);
     const {name, costForTwoMessage} = resInfo?.data?.cards[2]?.card?.card?.info;
-    //const costForTwoMessage = resInfo?.data?.cards[2]?.card?.card?.info?.costForTwoMessage;
 
-    const {itemCards} = resInfo?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card || resInfo?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card?.categories[0];
 
-    console.log(resInfo?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card);
+    const {itemCards} =resInfo?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards[3]?.card?.card?.categories[0] || resInfo?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards[3]?.card?.card;
+
+ 
+    // || resInfo?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards[3]?.card?.card 
+    //resInfo?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards[3]?.card?.card || 
+    console.log(resInfo?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR);
+   
     //resInfo?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card?.itemCards
  
 
-   
+
     return(
         <div className="menu">
             <h1>{name}</h1>

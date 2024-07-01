@@ -1,14 +1,17 @@
-import React from "react";
+import React, {lazy,Suspense} from "react";
 import ReactDOM from "react-dom/client";
 //importing components
 import Header from "./components/Header";
 import Body from "./components/Body";
 import About from "./components/About";
 import Contact from "./components/Contact";
+import Shimmer from "./components/Shimmer";
+// import Glocery from "./components/Glocery";
 import Error from "./components/Error";
 import RestaurentMenu from "./components/RestaurentMenu";
 import { createBrowserRouter,RouterProvider,Outlet } from "react-router-dom";
 
+const Glocery = lazy(()=> import("./components/Glocery"));
 const AppLayout = () =>{
     return (
         <div className="app">
@@ -38,6 +41,10 @@ const indexRouter = createBrowserRouter([
             {
                 path:"/contact",
                 element:<Contact/>
+            },
+            {
+                path:"/glocery",
+                element:<Suspense fallback={<Shimmer/>}><Glocery/></Suspense>
             },
             {
                 path:"/restaurents/:resId",

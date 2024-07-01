@@ -20,7 +20,7 @@
     height: 6rem;
     position: relative;
     z-index: -1;
-    margin-left: 1rem;
+    margin-left: 0.4rem;
 }
 .header .nav-options ul{
     display: flex;
@@ -31,7 +31,7 @@
 }
 .nav-options ul li{
     color: #403f3f;
-    margin-right: 4.5rem;
+    margin-right: 2rem;
     font-weight: 700;
     text-decoration: none;
    
