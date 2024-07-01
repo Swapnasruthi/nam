@@ -31,8 +31,9 @@ const RestaurentMenu = ()=>{
     const {name, costForTwoMessage} = resInfo?.data?.cards[2]?.card?.card?.info;
     //const costForTwoMessage = resInfo?.data?.cards[2]?.card?.card?.info?.costForTwoMessage;
 
-    const {itemCards} = resInfo?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card;
+    const {itemCards} = resInfo?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card || resInfo?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card?.categories[0];
 
+    console.log(resInfo?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card);
     //resInfo?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card?.itemCards
  
 

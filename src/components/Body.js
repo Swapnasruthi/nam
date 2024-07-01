@@ -24,8 +24,8 @@ const Body = ()=>{
         // console.log(json.data.success.cards[3].gridWidget.gridElements.infoWithStyle.restaurants);
        
         //optional chaining.
-        setListOfRestaurent(json?.data?.success?.cards[4]?.gridWidget?.gridElements?.infoWithStyle?.restaurants);
-        setFilteringRestaurent(json?.data?.success?.cards[4]?.gridWidget?.gridElements?.infoWithStyle?.restaurants);
+        setListOfRestaurent(json?.data?.success?.cards[3]?.gridWidget?.gridElements?.infoWithStyle?.restaurants || json?.data?.success?.cards[4]?.gridWidget?.gridElements?.infoWithStyle?.restaurants);
+        setFilteringRestaurent(json?.data?.success?.cards[3]?.gridWidget?.gridElements?.infoWithStyle?.restaurants || json?.data?.success?.cards[4]?.gridWidget?.gridElements?.infoWithStyle?.restaurants);
     }
     //conditional rendering.
     if(listOfRestaurent.length === 0){
