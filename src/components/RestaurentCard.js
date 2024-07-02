@@ -12,11 +12,11 @@ const RestraurentCards = (props)=>{
         areaName
     } = restObj?.info
     return(
-        <div className="resto-cards">
-           <img  className="resto-img" src={CDN_URL+ cloudinaryImageId}/>
+        <div className="p-3 mt-5 mb-5 ml-6 mr-2 w-[260px] h-[325px] transition-all hover:scale-110">
+           <img  className="rounded-xl h-[200] w-[250px]" src={CDN_URL+ cloudinaryImageId}/>
            
-           <div className="resto-info">
-           <p className="resto-title" >{name}</p>
+           <div className="resto-info ">
+           <p className="font-bold py-5" >{name}</p>
            <p><i class="fa-solid fa-star"></i>
            <span>{avgRating} •{(sla.deliveryTime-5) + "-"+(sla.deliveryTime)} mins </span></p>
            <p>{cuisines[0]+", "+cuisines[1]+",..."}</p>

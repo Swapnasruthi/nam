@@ -43,10 +43,10 @@ const Body = ()=>{
     return (
         
         <div className="body">
-            <div className="filter">
+            <div className="filter p-5">
                 <input 
                     type="text"
-                    className="input-box"
+                    className="border border-black"
                     value={inputValue}
                     //tracking the input value using the onchange function.
                     onChange={(e)=>{
@@ -54,7 +54,7 @@ const Body = ()=>{
                     }}
                 />
                 <button 
-                    className="input_submit"
+                    className="px-4 py-0.5 m-2 bg-green-200 rounded-lg"
                     onClick={()=>{
                             const inputFilter = listOfRestaurent.filter((res)=>res.info.name.toLowerCase().includes(inputValue));
                             setFilteringRestaurent(inputFilter);
@@ -64,7 +64,7 @@ const Body = ()=>{
                     submit
                 </button>
                 <button 
-                    className="filter-btn" 
+                    className="px-4 py-0.5 m-2 bg-gray-300 rounded-lg" 
                     onClick={ () => {
                         const filterdRest = listOfRestaurent.filter(
                             (res) => res.info.avgRating > 4
@@ -76,7 +76,7 @@ const Body = ()=>{
                     Rated Restaurant
                 </button>
             </div>
-                <div className="rest-container">
+                <div className="flex flex-wrap">
                    {
                     filteringRestaurent.map((restaurant) =>
                     (
