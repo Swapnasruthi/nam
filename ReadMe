@@ -14,3 +14,15 @@
 //  -links
 //  -contact 
 //  -address
+
+{/* <ol>
+                {itemCards.map( (items) => <li key={items.card.info.id}> { items.card.info.name} - Rs.{items.card.info.price/100}/- </li>)}
+
+                //traditional method of iterating through the list */}
+
+                        {/* <li>{itemCards[0].card.info.name}</li>
+                        <li>{itemCards[1].card.info.name}</li>
+                        <li>{itemCards[2].card.info.name}</li>
+                        <li>{itemCards[3].card.info.name}</li>
+
+</ol> */}

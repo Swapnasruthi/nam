@@ -1,6 +1,9 @@
 import useRestaurentMenu from "../utils/useRestaurentMenu";
+import React, {useState} from "react";
 import Shimmer from "./Shimmer";
 import { useParams } from "react-router-dom";
+import RestaurentCategory from "./RestaurentCategory";
+
 const RestaurentMenu = ()=>{
 
     const {resId} = useParams();
@@ -8,43 +11,46 @@ const RestaurentMenu = ()=>{
     
     const resInfo = useRestaurentMenu(resId);
    
-
+    const [showIndex, setShowIndex] = useState(null);
 
     
     if(resInfo === null){
         return <Shimmer/>;
     }
     //console.log(resInfo?.data?.cards[2]?.card?.card?.info);
-    const {name, costForTwoMessage} = resInfo?.data?.cards[2]?.card?.card?.info;
+    const {name, costForTwoMessage,cuisines} = resInfo?.data?.cards[2]?.card?.card?.info; 
 
+    //console.log(resInfo?.data?.cards[2]?.card?.card?.info);
 
-    const {itemCards} =resInfo?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards[3]?.card?.card?.categories[0] || resInfo?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards[3]?.card?.card;
+    // const {itemCards} =resInfo?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards[3]?.card?.card?.categories[0] || resInfo?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards[3]?.card?.card;
 
  
     // || resInfo?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards[3]?.card?.card 
-    //resInfo?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards[3]?.card?.card || 
-    console.log(resInfo?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR);
+    const categories = resInfo?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR.cards.filter(c=>c.card?.card?.["@type"] == "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory");
+
+    //console.log(categories);
+   
+    const nestedCategories  = resInfo?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(c=>c.card?.card?.["@type"] == "type.googleapis.com/swiggy.presentation.food.v2.NestedItemCategory");
+
    
     //resInfo?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card?.itemCards
  
 
 
     return(
-        <div className="menu">
-            <h1>{name}</h1>
-            <h3>{costForTwoMessage}</h3>
-            <h2>menu</h2>
-            <ol>
-                {itemCards.map( (items) => <li key={items.card.info.id}> { items.card.info.name} - Rs.{items.card.info.price/100}/- </li>)}
-
-                {/* traditional method of iterating through the list */}
-
-                        {/* <li>{itemCards[0].card.info.name}</li>
-                        <li>{itemCards[1].card.info.name}</li>
-                        <li>{itemCards[2].card.info.name}</li>
-                        <li>{itemCards[3].card.info.name}</li> */}
-
-            </ol>
+        <div className="text-center">
+            <h1 className="font-bold text-2xl mt-20">{name}</h1>
+            <h3 className="font-bold text-lg text-gray-600">{cuisines +" - "+ costForTwoMessage}</h3>
+         
+            {/* categories accordian*/}
+            {categories.map((category, index)=>(
+                <RestaurentCategory 
+                    key={category?.card?.card.title}
+                    data={category?.card?.card} 
+                    showItems = {index == showIndex ? true :null}
+                    setShowIndex = {()=>setShowIndex(prev => prev==index ? null : index)}
+                    />
+                ))}
         </div>
     )
 };

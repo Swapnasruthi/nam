@@ -1,8 +1,9 @@
-import RestraurentCards from "./RestaurentCard";
+import RestraurentCards, {withOfferTag} from "./RestaurentCard";
 import useOnlineStatus from "../utils/useOnlineStatus";
-import {useEffect, useState} from "react";
+import {useEffect, useState, useContext} from "react";
 import Shimmer from "./Shimmer";
 import {Link} from "react-router-dom";
+import userContext from "../utils/UserContext";
 
 const Body = ()=>{
     const [listOfRestaurent, setListOfRestaurent] = useState([]); //this is for storing all the cards (whenever i need to filter something, i'll use this variable)
@@ -10,10 +11,13 @@ const Body = ()=>{
    
     const [inputValue,setInputValue] = useState(""); //this is for tracking our input box.
 
+    const RestaurentOfferCards = withOfferTag(RestraurentCards);
+
     useEffect(()=>{
        fetchData();
     },[]);
 
+    const {loggedUserId, setUserName} = useContext(userContext);
     const fetchData = async ()=>{
         const data = await fetch("https://www.swiggy.com/mapi/homepage/getCards?lat=17.44941225066375&lng=78.383892888085"
         );
@@ -42,11 +46,11 @@ const Body = ()=>{
     
     return (
         
-        <div className="body">
-            <div className="filter p-5">
+        <div className="body w-10/12 m-auto">
+            <div className="filter p-5 flex items-center justify-center">
                 <input 
                     type="text"
-                    className="border border-black"
+                    className="border border-black h-8 w-72"
                     value={inputValue}
                     //tracking the input value using the onchange function.
                     onChange={(e)=>{
@@ -61,7 +65,7 @@ const Body = ()=>{
                             console.log(inputValue);
                        }} >
                    
-                    submit
+                    Search
                 </button>
                 <button 
                     className="px-4 py-0.5 m-2 bg-gray-300 rounded-lg" 
@@ -75,12 +79,31 @@ const Body = ()=>{
                     > 
                     Rated Restaurant
                 </button>
+                <label className="font-bold">User Name:</label>
+                <input 
+                    
+                    type="text"
+                    className="m-1 p-1 border border-black h-8 w-72"
+                    value={loggedUserId}
+                    onChange={(e)=>setUserName(e.target.value)}
+                
+                />
             </div>
-                <div className="flex flex-wrap">
+                <div className="flex flex-wrap justify-center">
                    {
                     filteringRestaurent.map((restaurant) =>
+                    
                     (
-                       <Link to={"restaurents/"+restaurant.info.id} style={{ textDecoration: 'none', color:"black" }}> <RestraurentCards key={restaurant.info.id} restObj={restaurant}/> </Link>
+                       <Link to={"restaurents/"+restaurant.info.id} style={{ textDecoration: 'none', color:"black" }}> 
+
+                       {
+                       
+                       restaurant.info.aggregatedDiscountInfoV3 ? 
+                       (<RestaurentOfferCards restObj={restaurant} />) : 
+                       
+                       (<RestraurentCards key={restaurant.info.id} restObj={restaurant}/>) }
+
+                       </Link>
                     ))
                    }
             </div>

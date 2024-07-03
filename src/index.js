@@ -1,4 +1,4 @@
-import React, {lazy,Suspense} from "react";
+import React, {lazy,Suspense,useEffect} from "react";
 import ReactDOM from "react-dom/client";
 //importing components
 import Header from "./components/Header";
@@ -10,10 +10,25 @@ import Shimmer from "./components/Shimmer";
 import Error from "./components/Error";
 import RestaurentMenu from "./components/RestaurentMenu";
 import { createBrowserRouter,RouterProvider,Outlet } from "react-router-dom";
-
+import userContext from "./utils/UserContext";
 const Glocery = lazy(()=> import("./components/Glocery"));
+const {useState} = require("react");
+
+
 const AppLayout = () =>{
+
+    const [userName,setUserName] = useState();
+
+    useEffect(()=>{
+        //authentication to the username and password
+        const data = {
+            name:"swapna sruthi",
+        }
+        setUserName(data.name);
+    },[]);
+
     return (
+        <userContext.Provider value = {{loggedUserId: userName, setUserName}}>
         <div className="app">
             <Header></Header>
             {/* the outlet just acts as a tunnel which pushes the element according to the path in the page.
@@ -21,8 +36,9 @@ const AppLayout = () =>{
             and it changes the component according to the path */}
             <Outlet/>
         </div>
-
+        </userContext.Provider>
     )
+    
 }
 
 const indexRouter = createBrowserRouter([
