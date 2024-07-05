@@ -13,7 +13,7 @@ const RestaurentMenu = ()=>{
    
     const [showIndex, setShowIndex] = useState(null);
 
-    
+    console.log("vas",resId);
     if(resInfo === null){
         return <Shimmer/>;
     }
@@ -26,7 +26,7 @@ const RestaurentMenu = ()=>{
 
  
     // || resInfo?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards[3]?.card?.card 
-    const categories = resInfo?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR.cards.filter(c=>c.card?.card?.["@type"] == "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory");
+    const categories = resInfo?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR.cards.filter(c=>c.card?.card?.["@type"] == "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory");
 
     //console.log(categories);
    
@@ -38,9 +38,9 @@ const RestaurentMenu = ()=>{
 
 
     return(
-        <div className="text-center">
-            <h1 className="font-bold text-2xl mt-20">{name}</h1>
-            <h3 className="font-bold text-lg text-gray-600">{cuisines +" - "+ costForTwoMessage}</h3>
+        <div className="text-center mt-40">
+            <h1 className="font-bold text-2xl  mb-5">{name}</h1>
+            <h3 className="font-bold text-lg text-gray-600 mb-10">{cuisines +" - "+ costForTwoMessage}</h3>
          
             {/* categories accordian*/}
             {categories.map((category, index)=>(

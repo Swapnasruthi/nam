@@ -11,6 +11,11 @@ import Error from "./components/Error";
 import RestaurentMenu from "./components/RestaurentMenu";
 import { createBrowserRouter,RouterProvider,Outlet } from "react-router-dom";
 import userContext from "./utils/UserContext";
+import Cart from "./components/cart";
+import { Provider } from "react-redux";
+import appStore from "./utils/AppStore";
+
+
 const Glocery = lazy(()=> import("./components/Glocery"));
 const {useState} = require("react");
 
@@ -28,6 +33,7 @@ const AppLayout = () =>{
     },[]);
 
     return (
+        <Provider store={appStore}>
         <userContext.Provider value = {{loggedUserId: userName, setUserName}}>
         <div className="app">
             <Header></Header>
@@ -37,7 +43,10 @@ const AppLayout = () =>{
             <Outlet/>
         </div>
         </userContext.Provider>
+        </Provider>
+  
     )
+    
     
 }
 
@@ -65,6 +74,10 @@ const indexRouter = createBrowserRouter([
             {
                 path:"/restaurents/:resId",
                 element:<RestaurentMenu/>
+            },
+            {
+                path:"/cart",
+                element:<Cart/>
             },
         ],
         errorElement:<Error/>,

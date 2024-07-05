@@ -1,7 +1,13 @@
 import { CDN_URL } from "../utils/constants";
-
+import { useDispatch } from "react-redux";
+import { addItem } from "../utils/cartSlice";
 const ResCategoryList = ({items}) =>{
     
+    const Dispatch = useDispatch();
+    const clickFuntion = (item)=>{
+        Dispatch(addItem(item));
+      
+    }
 
     return (
         <div className="my-2">
@@ -14,11 +20,14 @@ const ResCategoryList = ({items}) =>{
                         <span className="font-bold text-lg">₹{item.card.info.price/100}</span>
                         <span className="font-bold">★<span className="text-green-600">{item.card.info.ratings.aggregatedRating.rating}</span> ({item.card.info.ratings.aggregatedRating.ratingCountV2})</span>
                     </div>
-                        <p className="w-[40rem] mt-8">{item.card.info.description}</p>
+                        <p className="w-10/12 mt-8">{item.card.info.description}</p>
                 </div>
                 <div className="3/12">
                     <img src={CDN_URL + item.card.info.imageId} alt="image is not available" className="relative z-0 w-52 h-40 rounded-2xl"/>
-                    <button className="absolute flex w-32 h-[2.9rem] text-center p-2 ml-10 mt-[-2rem] justify-center rounded-xl bg-white z-10 text-green-600 font-extrabold text-xl shadow-xl hover:bg-gray-200">ADD</button>
+                    <button className="absolute flex w-32 h-[2.9rem] text-center p-2 ml-10 mt-[-2rem] justify-center rounded-xl bg-white z-10 text-green-600 font-extrabold text-xl shadow-xl hover:bg-gray-200"
+                        onClick={()=>clickFuntion(item)}>
+                            ADD
+                            </button>
                 </div>
             </div>
             ))}
