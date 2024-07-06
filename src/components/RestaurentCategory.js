@@ -13,11 +13,11 @@ const RestaurentCategory = ({data, showItems, setShowIndex})=> {
     }
     
     return(
-        <div className="mt-30 mb-10">
+        <div className="mt-30 mb-10 md:w-6/12 m-auto">
             {/* header */}
-            <div className="box-border border-t-[1rem] text-center border-solid border-gray-200 w-6/12 m-auto"
+            <div className="box-border border-t-[1rem] text-center border-solid border-gray-200 "
                 >
-                <h1 className="cursor-pointer flex justify-between items-center mt-5 box-border font-bold text-xl" 
+                <h1 className=" w-10/12 m-auto cursor-pointer flex justify-between items-center mt-5 box-border font-bold md:text-lg" 
                  onClick={clickFuntion}>{data.title} ({data.itemCards.length}) <span>{showItems? <span>⯅</span> : <span>⯆</span>}</span></h1>
                  
                  {/* accordian body */}

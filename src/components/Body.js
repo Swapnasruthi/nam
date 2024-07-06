@@ -5,7 +5,7 @@ import Shimmer from "./Shimmer";
 import {Link} from "react-router-dom";
 import userContext from "../utils/UserContext";
 import { SWIGGY_API } from "../utils/constants";
-
+import Footer from "./Footer";
 const Body = ()=>{
     const [listOfRestaurent, setListOfRestaurent] = useState([]); //this is for storing all the cards (whenever i need to filter something, i'll use this variable)
     const [filteringRestaurent, setFilteringRestaurent] = useState([]); //this is for displaying the changes in the UI. it also contains the cards. but, changes will be undergoes in this variable.
@@ -69,11 +69,13 @@ const Body = ()=>{
     
     return (
         
-        <div className="body w-10/12 m-auto">
-            <div className="filter p-5 flex items-center justify-center">
+        <div className="body w-full m-auto">
+            <div className="mt-24 filter p-5 flex items-center justify-center">
+                <div className="flex justify-center w-full items-center text-center m-auto">
                 <input 
                     type="text"
-                    className="border border-black h-8 w-72"
+                    placeholder="Search a restaurent you want.."
+                    className="p-2 w-[30rem] border rounded-l-md border-[#aabcca] box-border border-r-0 shadow-xl outline-none focus:border-[#c26100]"
                     value={inputValue}
                     //tracking the input value using the onchange function.
                     onChange={(e)=>{
@@ -81,16 +83,17 @@ const Body = ()=>{
                     }}
                 />
                 <button 
-                    className="px-4 py-0.5 m-2 bg-green-200 rounded-lg"
+                    className="px-4 py-[0.6rem] text-white bg-[#c26100] rounded-r-md border-none outline-none box-border shadow-xl ml-[-4px] hover:bg-[#016034]"
                     onClick={()=>{
                             const inputFilter = listOfRestaurent.filter((res)=>res.info.name.toLowerCase().includes(inputValue));
                             setFilteringRestaurent(inputFilter);
                             console.log(inputValue);
                        }} >
                    
-                    Search
+                    search
                 </button>
-                <button 
+                </div>
+                {/* <button 
                     className="px-4 py-0.5 m-2 bg-gray-300 rounded-lg" 
                     onClick={ () => {
                         const filterdRest = listOfRestaurent.filter(
@@ -101,8 +104,8 @@ const Body = ()=>{
                     }} 
                     > 
                     Rated Restaurant
-                </button>
-                <label className="font-bold">User Name:</label>
+                </button> */}
+                {/* <label className="font-bold">User Name:</label>
                 <input 
                     
                     type="text"
@@ -110,7 +113,7 @@ const Body = ()=>{
                     value={loggedUserId}
                     onChange={(e)=>setUserName(e.target.value)}
                 
-                />
+                /> */}
             </div>
                 <div className="flex flex-wrap justify-center">
                    {
@@ -130,7 +133,11 @@ const Body = ()=>{
                     ))
                    }
             </div>
+            <div>
+            <Footer/>
+            </div>
         </div>
+        
     )
 }
 

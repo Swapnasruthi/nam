@@ -14,7 +14,8 @@ import userContext from "./utils/UserContext";
 import Cart from "./components/cart";
 import { Provider } from "react-redux";
 import appStore from "./utils/AppStore";
-
+import PaymentInfo from "./components/PaymentInfo";
+import Footer from "./components/Footer";
 
 const Glocery = lazy(()=> import("./components/Glocery"));
 const {useState} = require("react");
@@ -35,12 +36,13 @@ const AppLayout = () =>{
     return (
         <Provider store={appStore}>
         <userContext.Provider value = {{loggedUserId: userName, setUserName}}>
-        <div className="app">
+        <div className="app w-full h-full p-auto m-auto">
             <Header></Header>
             {/* the outlet just acts as a tunnel which pushes the element according to the path in the page.
             as it in the Applayout component whenever the path changes in the element, outlet undestands it
             and it changes the component according to the path */}
             <Outlet/>
+            {/* <Footer/> */}
         </div>
         </userContext.Provider>
         </Provider>
@@ -78,6 +80,10 @@ const indexRouter = createBrowserRouter([
             {
                 path:"/cart",
                 element:<Cart/>
+            },
+            {
+                path:"/payment",
+                element:<PaymentInfo/>
             },
         ],
         errorElement:<Error/>,
